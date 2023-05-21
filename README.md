@@ -13,11 +13,15 @@ docker-compose up --build
 OpenAPI Specification ```http://0.0.0.0:8000/docs#```
 
 
-Example body request
+Example  request
 ```
-{
-  "questions_num": 5
-}
+curl -X 'POST' \
+  'http://0.0.0.0:8000/quiz' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "questions_num": 3
+}'
 ```
 
 

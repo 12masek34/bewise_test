@@ -47,6 +47,7 @@ async def request_quiz_questions(count: int) -> list[dict[str, Any]]:
         if response.status_code == status.HTTP_200_OK:
             questions = response.json()
         else:
+            logging.info(f'status code={response.status_code}, url={url}, count={count}')
             raise HTTPException(
                 status_code=status.HTTP_204_NO_CONTENT,
                 detail=(

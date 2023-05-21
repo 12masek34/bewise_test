@@ -1,3 +1,4 @@
+import logging
 from collections.abc import (
     AsyncGenerator,
 )
@@ -16,7 +17,6 @@ from config import (
 from database.models import (
     Base,
 )
-
 
 async_engine = create_async_engine(config.ASYNC_POSTGRES_URL)
 async_session = async_sessionmaker(
@@ -41,7 +41,8 @@ async def get_async_db() -> AsyncGenerator[AsyncSession, None]:
         try:
             yield db
             await db.commit()
-        except Exception:
+        except Exception as e:
+            logging.error(e, exc_info=True)
             await db.rollback()
         finally:
             await db.close()
